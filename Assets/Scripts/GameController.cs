@@ -69,6 +69,10 @@ public class GameController : SingletonMonoBehavior<GameController>
 		{
 			if(_button_prefab != null)
 			{
+				var _base_position = new Vector3(
+					((float)(this._buttons.GetLength(0) / 2) * -_button_distance),
+					((float)(this._buttons.GetLength(0) / 2) * -_button_distance));
+
 				var _sequence = from row	in Enumerable.Range(0, this._buttons.GetLength(0))
 								from column in Enumerable.Range(0, this._buttons.GetLength(1))
 								select new { row, column };
@@ -76,7 +80,7 @@ public class GameController : SingletonMonoBehavior<GameController>
 				foreach (var _index in _sequence)
 				{
 					var _created_object = Instantiate(_button_prefab, this.transform);
-					_created_object.transform.position = new Vector3(_index.column, _index.row) * _button_distance;
+					_created_object.transform.position = (new Vector3(_index.column, _index.row) * _button_distance) + _base_position;
 					this._buttons[_index.row, _index.column] = _created_object.GetComponent<Button>();
 				}
 			}
