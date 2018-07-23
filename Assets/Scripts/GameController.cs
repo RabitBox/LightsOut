@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+//---------------------------------------------
+// ゲーム全体の進行管理クラス
+//---------------------------------------------
+public class GameController : SingletonMonoBehavior<GameController>
 {
-	private List<Button> _buttons = new List<Button>();
-
+	//==================================================
 	// Use this for initialization
 	void Start()
 	{
