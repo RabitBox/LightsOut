@@ -12,14 +12,15 @@ public class Board : MonoBehaviour
 	private Button[,] _buttons;
 	[SerializeField]
 	private GameObject _button_prefab = null;
-	private readonly int _number = 5;
-	private readonly float _button_distance = 1.2f;
+
+	private readonly int NUMBER = 5;
+	private readonly float BUTTON_DISTANCE = 1.25f;
 
 	//==================================================
 	// Use this for initialization
 	void Start()
 	{
-		_buttons = new Button[_number, _number];
+		_buttons = new Button[NUMBER, NUMBER];
 		CreateButtons();
 	}
 
@@ -73,8 +74,8 @@ public class Board : MonoBehaviour
 			if(_button_prefab != null)
 			{
 				var _base_position = new Vector3(
-					((float)(this._buttons.GetLength(0) / 2) * -_button_distance),
-					((float)(this._buttons.GetLength(0) / 2) * -_button_distance));
+					((float)(this._buttons.GetLength(0) / 2) * -BUTTON_DISTANCE),
+					((float)(this._buttons.GetLength(1) / 2) * -BUTTON_DISTANCE));
 
 				var _sequence = from row	in Enumerable.Range(0, this._buttons.GetLength(0))
 								from column in Enumerable.Range(0, this._buttons.GetLength(1))
@@ -83,7 +84,7 @@ public class Board : MonoBehaviour
 				foreach (var _index in _sequence)
 				{
 					var _created_object = Instantiate(_button_prefab, this.transform);
-					_created_object.transform.position = (new Vector3(_index.column, _index.row) * _button_distance) + _base_position;
+					_created_object.transform.position = (new Vector3(_index.column, _index.row) * BUTTON_DISTANCE) + _base_position;
 					this._buttons[_index.row, _index.column] = _created_object.GetComponent<Button>();
 				}
 			}
