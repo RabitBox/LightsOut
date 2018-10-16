@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-	private bool _isLight = true;	// ボタンが光っているか
+	private bool _isLight = true;
 	public bool IsLight { get { return this._isLight; } }
 	MeshRenderer _renderer = null;
+
+	[SerializeField] GameData _data = null;
 
 	// Use this for initialization
 	private void Start()
 	{
 		_renderer = this.transform.GetChild(0).GetComponent<MeshRenderer>();
+		
 	}
 
 	public void SwitchLight()
@@ -24,13 +27,15 @@ public class Button : MonoBehaviour
 		SwitchMaterial();
 	}
 
+	// マテリアルを入れ替える
 	public void SwitchMaterial()
 	{
-		if (_renderer != null)
+		if (_renderer != null
+			&& _data != null)
 		{
 			_renderer.material = (_isLight == true) ?
-				Resources.Load<Material>("Materials/On") :
-				Resources.Load<Material>("Materials/Off");
+				_data.ButtonOnMaterial :
+				_data.ButtonOffMaterial;
 		}
 	}
 }

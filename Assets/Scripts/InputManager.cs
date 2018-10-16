@@ -5,9 +5,9 @@ using UnityEngine;
 public class InputManager : SingletonMonoBehavior<InputManager>
 {
 	// レイキャストを飛ばし、当たったゲームオブジェクトの情報を取得する
-	public GameObject GetRaycastHitObject(Vector3 _screen_position)
+	public GameObject GetRaycastHitObject(Vector3 screen_position)
 	{
-		var _ray = Camera.main.ScreenPointToRay(_screen_position);
+		var _ray = Camera.main.ScreenPointToRay(screen_position);
 		RaycastHit _raycast_hit;
 
 		Physics.Raycast(_ray, out _raycast_hit);

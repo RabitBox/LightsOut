@@ -9,9 +9,8 @@ using UnityEngine;
 //---------------------------------------------
 public class Board : MonoBehaviour
 {
-	private Button[,] _buttons;
-	[SerializeField]
-	private GameObject _button_prefab = null;
+	[SerializeField] private Button[,] _buttons;
+	[SerializeField] private GameObject _button_prefab = null;
 
 	private readonly int NUMBER = 5;
 	private readonly float BUTTON_DISTANCE = 1.25f;
@@ -35,13 +34,13 @@ public class Board : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			var _target = InputManager.Instance.GetRaycastHitObject(Input.mousePosition);
+			var target = InputManager.Instance.GetRaycastHitObject(Input.mousePosition);
 
-			if(_target != null)
+			if(target != null)
 			{
-				if(_target.tag == "Button")
+				if(target.tag == "Button")
 				{
-					_target.GetComponent<Button>().SwitchLight();
+					target.GetComponent<Button>().SwitchLight();
 				}
 			}
 		}
