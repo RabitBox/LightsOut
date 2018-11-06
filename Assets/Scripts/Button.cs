@@ -15,19 +15,6 @@ public class Button : MonoBehaviour
 
 	[SerializeField] private GameData _data = null;
 
-	private bool _isClicked = false;
-	public bool IsClicked
-	{
-		get { return _isClicked; }
-		private set { _isClicked = value; }
-	}
-
-	// クリックされたときに外部で呼び出す
-	public void Click()
-	{
-		IsClicked = true;
-	}
-
 	/// <summary>
 	/// ボタンの発光を切り替える
 	/// </summary>
@@ -36,7 +23,6 @@ public class Button : MonoBehaviour
 		_isLight = (_isLight == true) ? 
 			false :
 			true;
-		_isClicked = false;
 
 		SwitchMaterial();
 	}

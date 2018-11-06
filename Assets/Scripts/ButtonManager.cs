@@ -43,8 +43,9 @@ public class ButtonManager : MonoBehaviour
 				if(target.tag == "Button")
 				{
 					var button = target.GetComponent<Button>();
-					button.Click();
-					button.SwitchLight();	// 仮
+					button.SwitchLight();
+
+					this.SwitchButtons(target);
 				}
 			}
 		}
@@ -73,11 +74,23 @@ public class ButtonManager : MonoBehaviour
 	/// <summary>
 	/// ボタンの光を切り替える
 	/// </summary>
-	private void SwitchButtons()
+	private void SwitchButtons(GameObject button)
 	{
-		foreach(var index in _switchTable)
+		var sequence =	from row	in Enumerable.Range(0, this._buttons.GetLength(0))
+						from column in Enumerable.Range(0, this._buttons.GetLength(1))
+						select new { row, column };
+		foreach (var buttonsIndex in sequence)
 		{
+			// 取得したゲームオブジェクトを配列内から探す
+			// 一致したものと、その上下左右の色を変更する
+			if (this._buttons[buttonsIndex.row, buttonsIndex.column].GetInstanceID() == button.gameObject.GetInstanceID())
+			{
+				
+				foreach (var tableIndex in _switchTable)
+				{
 
+				}
+			}
 		}
 	}
 
