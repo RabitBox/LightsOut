@@ -42,9 +42,6 @@ public class ButtonManager : MonoBehaviour
 			{
 				if(target.tag == "Button")
 				{
-					var button = target.GetComponent<Button>();
-					button.SwitchLight();
-
 					this.SwitchButtons(target);
 				}
 			}
@@ -55,20 +52,18 @@ public class ButtonManager : MonoBehaviour
 	/// 全てのボタンの状態をチェックする
 	/// </summary>
 	/// <returns>光っているボタンがあるか否か</returns>
-	private bool CheckButtons()
+	private bool IsCheckButtonsOff()
 	{
-		var sequence =	from row	in Enumerable.Range(0, this._buttons.GetLength(0))
-						from column in Enumerable.Range(0, this._buttons.GetLength(1))
-						select new { row, column };
-
-		foreach(var index in sequence)
+		foreach(var button in this._buttons)
 		{
-			if(this._buttons[index.row, index.column].IsLight)
+			if(button.IsLight)
 			{
 				return false;
 			}
 		}
 		return true;
+
+		//return _buttons.Cast<Button>().All( X => X.IsLight == false );
 	}
 
 	/// <summary>
@@ -79,16 +74,29 @@ public class ButtonManager : MonoBehaviour
 		var sequence =	from row	in Enumerable.Range(0, this._buttons.GetLength(0))
 						from column in Enumerable.Range(0, this._buttons.GetLength(1))
 						select new { row, column };
-		foreach (var buttonsIndex in sequence)
+
+		foreach (var buttonIndex in sequence)
 		{
 			// 取得したゲームオブジェクトを配列内から探す
 			// 一致したものと、その上下左右の色を変更する
-			if (this._buttons[buttonsIndex.row, buttonsIndex.column].GetInstanceID() == button.gameObject.GetInstanceID())
+			if (this._buttons[buttonIndex.row, buttonIndex.column].gameObject.GetInstanceID() == button.GetInstanceID())
 			{
-				
-				foreach (var tableIndex in _switchTable)
-				{
+				this._buttons[buttonIndex.row, buttonIndex.column].SwitchLight();
+				Debug.Log(buttonIndex.row.ToString() + ", " + buttonIndex.column.ToString());
 
+				for(int i = 0; i < this._switchTable.GetLength(0); i++)
+				{
+					var row = (buttonIndex.row + _switchTable[i, 0]);
+					//row = (row < 0) ? 0 : (row > NUMBER - 1) ? NUMBER - 1 : row;
+					var column = (buttonIndex.column + _switchTable[i, 1]);
+					//column = (column < 0) ? 0 : (column > NUMBER - 1) ? NUMBER - 1 : column;
+
+					Debug.Log(row.ToString() + ", " + column.ToString());
+
+					//if (buttonIndex.row != row && buttonIndex.column != column)
+					//{
+					//	this._buttons[row, column].SwitchLight();
+					//}
 				}
 			}
 		}
