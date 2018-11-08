@@ -82,21 +82,19 @@ public class ButtonManager : MonoBehaviour
 			if (this._buttons[buttonIndex.row, buttonIndex.column].gameObject.GetInstanceID() == button.GetInstanceID())
 			{
 				this._buttons[buttonIndex.row, buttonIndex.column].SwitchLight();
-				Debug.Log(buttonIndex.row.ToString() + ", " + buttonIndex.column.ToString());
 
 				for(int i = 0; i < this._switchTable.GetLength(0); i++)
 				{
 					var row = (buttonIndex.row + _switchTable[i, 0]);
-					//row = (row < 0) ? 0 : (row > NUMBER - 1) ? NUMBER - 1 : row;
+					row = (row < 0) ? 0 : (row > NUMBER - 1) ? NUMBER - 1 : row;
 					var column = (buttonIndex.column + _switchTable[i, 1]);
-					//column = (column < 0) ? 0 : (column > NUMBER - 1) ? NUMBER - 1 : column;
+					column = (column < 0) ? 0 : (column > NUMBER - 1) ? NUMBER - 1 : column;
 
-					Debug.Log(row.ToString() + ", " + column.ToString());
 
-					//if (buttonIndex.row != row && buttonIndex.column != column)
-					//{
-					//	this._buttons[row, column].SwitchLight();
-					//}
+					if (buttonIndex.row != row || buttonIndex.column != column)
+					{
+						this._buttons[row, column].SwitchLight();
+					}
 				}
 			}
 		}
