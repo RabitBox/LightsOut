@@ -8,7 +8,7 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
 	private bool _isLight = true;
-	public bool IsLight { get { return this._isLight; } }
+	public bool IsLight { get { return this._isLight; } private set { _isLight = value; } }
 
 	[SerializeField]
 	MeshRenderer _renderer = null;
@@ -20,7 +20,7 @@ public class Button : MonoBehaviour
 	/// </summary>
 	public void SwitchLight()
 	{
-		_isLight = (_isLight == true) ? 
+		IsLight = (IsLight == true) ? 
 			false :
 			true;
 
@@ -35,7 +35,7 @@ public class Button : MonoBehaviour
 		if (_renderer != null
 			&& _data != null)
 		{
-			_renderer.material = (_isLight == true) ?
+			_renderer.material = (IsLight == true) ?
 				_data.ButtonOnMaterial :
 				_data.ButtonOffMaterial;
 		}
