@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496356a9ec011634f905f30ef7084c46, type: 3}
+  m_Name: GameData
+  m_EditorClassIdentifier: 
+  _buttonOnMaterial: {fileID: 2100000, guid: 08691049bd79fb44db4a1ae9093fe894, type: 2}
+  _buttonOffMaterial: {fileID: 2100000, guid: b78d4769d29f0c043955e0c1c1638310, type: 2}

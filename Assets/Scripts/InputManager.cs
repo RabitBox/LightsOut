@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class InputManager : SingletonMonoBehavior<InputManager>
 {
-	// レイキャストを飛ばし、当たったゲームオブジェクトの情報を取得する
-	public GameObject GetRaycastHitObject(Vector3 _screen_position)
+	/// <summary>
+	/// レイキャストを飛ばし、当たったゲームオブジェクトの情報を取得する
+	/// </summary>
+	/// <param name="screenPosition"> レイキャストを飛ばすスクリーン座標 </param>
+	/// <returns> ヒットしたGameObject </returns>
+	public GameObject GetRaycastHitObject(Vector3 screenPosition)
 	{
-		var _ray = Camera.main.ScreenPointToRay(_screen_position);
-		RaycastHit _raycast_hit;
+		var ray = Camera.main.ScreenPointToRay(screenPosition);
+		RaycastHit raycastHit;
 
-		Physics.Raycast(_ray, out _raycast_hit);
+		Physics.Raycast(ray, out raycastHit);
 
-		if (_raycast_hit.collider != null)
+		if (raycastHit.collider != null)
 		{
-			return _raycast_hit.collider.gameObject;
+			return raycastHit.collider.gameObject;
 		}
 		return null;
 	}
