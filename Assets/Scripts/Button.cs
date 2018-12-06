@@ -7,12 +7,21 @@ using UnityEngine;
 /// </summary>
 public class Button : MonoBehaviour
 {
+	/// <summary>
+	/// 発光フラグ
+	/// </summary>
 	private bool _isLight = true;
 	public bool IsLight { get { return this._isLight; } private set { _isLight = value; } }
 
+	/// <summary>
+	/// レンダラー
+	/// </summary>
 	[SerializeField]
 	MeshRenderer _renderer = null;
 
+	/// <summary>
+	/// ゲームデータ(マテリアル変更用)
+	/// </summary>
 	[SerializeField] private GameData _data = null;
 
 	/// <summary>
