@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class ButtonManager : MonoBehaviour
 {
-	[SerializeField] private Button[,] _buttons;
+	[SerializeField] private LightButton[,] _buttons;
 	[SerializeField] private GameObject _buttonPrefab = null;
 
 	private readonly int NUMBER = 5;
@@ -122,7 +122,7 @@ public class ButtonManager : MonoBehaviour
 	private void CreateButtons()
 	{
 		// ボタンを登録する配列の初期化
-		_buttons = new Button[NUMBER, NUMBER];
+		_buttons = new LightButton[NUMBER, NUMBER];
 
 		if (_buttonPrefab != null)
 		{
@@ -139,7 +139,7 @@ public class ButtonManager : MonoBehaviour
 			{
 				var createdObject = Instantiate(_buttonPrefab, this.transform);
 				createdObject.transform.position = (new Vector3(index.column, index.row) * BUTTON_DISTANCE) + basePosition;
-				this._buttons[index.row, index.column] = createdObject.GetComponent<Button>();
+				this._buttons[index.row, index.column] = createdObject.GetComponent<LightButton>();
 			}
 		}
 	}
