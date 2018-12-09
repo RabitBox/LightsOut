@@ -14,7 +14,8 @@ public class ButtonManager : MonoBehaviour
 	private readonly int NUMBER = 5;
 	private readonly float BUTTON_DISTANCE = 1.25f;
 
-	private int[,] _switchTable = { {0, 1}, {0, -1}, {1, 0}, {-1, 0} };
+	struct MatrixData { public int row; public int colomn; public MatrixData(int row, int colomn) { this.row = row; this.colomn = colomn; } }
+	private MatrixData[] _switchTable = new MatrixData[]{ new MatrixData(0, 1), new MatrixData(0, -1), new MatrixData(1, 0), new MatrixData(-1, 0) };
 
 	//==================================================
 	// Use this for initialization
@@ -83,19 +84,34 @@ public class ButtonManager : MonoBehaviour
 			{
 				this._buttons[buttonIndex.row, buttonIndex.column].SwitchLight();
 
-				for(int i = 0; i < this._switchTable.GetLength(0); i++)
+				foreach (var data in _switchTable)
 				{
-					var row = (buttonIndex.row + _switchTable[i, 0]);
+					var row = (buttonIndex.row + data.row);
 					row = (row < 0) ? 0 : (row > NUMBER - 1) ? NUMBER - 1 : row;
-					var column = (buttonIndex.column + _switchTable[i, 1]);
+					var column = (buttonIndex.column + data.colomn);
 					column = (column < 0) ? 0 : (column > NUMBER - 1) ? NUMBER - 1 : column;
-
 
 					if (buttonIndex.row != row || buttonIndex.column != column)
 					{
 						this._buttons[row, column].SwitchLight();
 					}
 				}
+
+				break;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 全てのボタンをOffにする
+	/// </summary>
+	public void TurnOffAllButtons()
+	{
+		foreach (var button in _buttons)
+		{
+			if (button.IsLight)
+			{
+				button.SwitchLight();
 			}
 		}
 	}
