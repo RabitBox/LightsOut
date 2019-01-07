@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// ボタンに関連する処理をまとめたクラス
 /// </summary>
-public class Button : MonoBehaviour
+public class LightButton : MonoBehaviour
 {
 	/// <summary>
 	/// 発光フラグ
