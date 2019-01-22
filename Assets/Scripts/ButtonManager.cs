@@ -24,47 +24,13 @@ public class ButtonManager : MonoBehaviour
 		CreateButtons();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		Click();
-	}
-
-	/// <summary>
-	/// 画面をクリックされたときの処理
-	/// </summary>
-	private void Click()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			var target = InputManager.Instance.GetRaycastHitObject(Input.mousePosition);
-
-			if(target != null)
-			{
-				if(target.tag == "Button")
-				{
-					this.SwitchButtons(target);
-				}
-			}
-		}
-	}
-
 	/// <summary>
 	/// 全てのボタンの状態をチェックする
 	/// </summary>
 	/// <returns>光っているボタンがあるか否か</returns>
-	private bool IsCheckButtonsOff()
+	public bool IsCheckButtonsOff()
 	{
-		foreach(var button in this._buttons)
-		{
-			if(button.IsLight)
-			{
-				return false;
-			}
-		}
-		return true;
-
-		//return _buttons.Cast<Button>().All( X => X.IsLight == false );
+		return _buttons.Cast<LightButton>().All( X => X.IsLight == false );
 	}
 
 	/// <summary>
@@ -72,6 +38,8 @@ public class ButtonManager : MonoBehaviour
 	/// </summary>
 	private void SwitchButtons(GameObject button)
 	{
+		if (button == null) return;
+
 		var sequence =	from row	in Enumerable.Range(0, this._buttons.GetLength(0))
 						from column in Enumerable.Range(0, this._buttons.GetLength(1))
 						select new { row, column };
@@ -140,6 +108,20 @@ public class ButtonManager : MonoBehaviour
 				var createdObject = Instantiate(_buttonPrefab, this.transform);
 				createdObject.transform.position = (new Vector3(index.column, index.row) * BUTTON_DISTANCE) + basePosition;
 				this._buttons[index.row, index.column] = createdObject.GetComponent<LightButton>();
+			}
+		}
+	}
+
+	/// <summary>
+	/// 画面をクリックされたときの処理
+	/// </summary>
+	public void OnClick(GameObject target)
+	{
+		if (target != null)
+		{
+			if (target.tag == "Button")
+			{
+				this.SwitchButtons(target);
 			}
 		}
 	}
