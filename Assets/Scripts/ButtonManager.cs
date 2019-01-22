@@ -71,13 +71,14 @@ public class ButtonManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 全てのボタンをOffにする
+	/// 全てのボタンのモードを切り替える
 	/// </summary>
-	public void TurnOffAllButtons()
+	/// <param name="mode"></param>
+	public void SwitchAllButtons(bool mode)
 	{
 		foreach (var button in _buttons)
 		{
-			if (button.IsLight)
+			if (button.IsLight != mode)
 			{
 				button.SwitchLight();
 			}

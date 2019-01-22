@@ -19,6 +19,10 @@ public class Game : MonoBehaviour
 	}
 
 	[SerializeField]
+	private GameObject _pause;
+	[SerializeField]
+	private GameObject _clear;
+	[SerializeField]
 	private Mode _nowMode = Mode.Play;
 	private ButtonManager _buttonManager = null;
 
@@ -31,7 +35,26 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		OnClick();
+		switch (_nowMode)
+		{
+			case Mode.Play:
+				OnClick();
+				break;
+
+			case Mode.Clear:
+				if (_clear.activeSelf == false)
+				{
+					_clear.SetActive(true);
+				}
+				break;
+
+			case Mode.Pause:
+				if (_pause.activeSelf == false)
+				{
+					_pause.SetActive(true);
+				}
+				break;
+		}
 	}
 
 	/// <summary>
@@ -39,24 +62,25 @@ public class Game : MonoBehaviour
 	/// </summary>
 	private void OnClick()
 	{
-		if (_nowMode == Mode.Play)
+		if (Input.GetMouseButtonDown(0))
 		{
-			if (Input.GetMouseButtonDown(0))
+			_buttonManager.OnClick(InputManager.Instance.GetRaycastHitObject(Input.mousePosition));
+			if (_buttonManager.IsCheckButtonsOff())
 			{
-				_buttonManager.OnClick(InputManager.Instance.GetRaycastHitObject(Input.mousePosition));
-				if (_buttonManager.IsCheckButtonsOff())
-				{
-					_nowMode = Mode.Clear;
-				}
+				_nowMode = Mode.Clear;
 			}
-		}	
+		}
 	}
 
 
 	public void OnClick_Pause()
 	{
 		_nowMode = _nowMode == Mode.Play ? Mode.Pause : Mode.Play;
+	}
 
-		
+	public void OnClick_Retry()
+	{
+		_nowMode = Mode.Play;
+		_buttonManager.SwitchAllButtons(true);
 	}
 }
