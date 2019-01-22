@@ -53,4 +53,10 @@ public class Game : MonoBehaviour
 	}
 
 
+	public void OnClick_Pause()
+	{
+		_nowMode = _nowMode == Mode.Play ? Mode.Pause : Mode.Play;
+
+		
+	}
 }
